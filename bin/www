@@ -1,10 +1,11 @@
 /**
  * Module dependencies.
  */
+const http = require('http');
+
+const debug = require('debug')('express-demo:server');
 
 const app = require('../app');
-const debug = require('debug')('express-demo:server');
-const http = require('http');
 
 /**
  * Get port from environment and store in Express.
