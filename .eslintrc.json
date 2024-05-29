@@ -7,23 +7,41 @@
   "extends": [
     "eslint:recommended",
     "plugin:node/recommended",
+    "plugin:import/recommended",
     "prettier"
   ],
-  "plugins": [
-    "prettier"
-  ],
+  "plugins": ["prettier", "import"],
   "rules": {
     "prettier/prettier": "error",
     "no-process-exit": "off",
     "no-var": "error",
-    "prefer-const": ["error", {
-      "destructuring": "any",
-      "ignoreReadBeforeAssign": false
-    }]
+    "prefer-const": [
+      "error",
+      {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": false
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin", // Node.js built-ins like fs, path
+          "external", // npm modules
+          "internal", // Internal modules if any
+          "parent", // Parent directories
+          "sibling", // Sibling files
+          "index" // Index file
+        ],
+        "newlines-between": "always", // Enforce newlines between groups
+        "alphabetize": {
+          "order": "asc", // Sort in ascending order
+          "caseInsensitive": true // Ignore case when sorting
+        }
+      }
+    ]
   },
-  "overrides": [
-    { "files": ["**/*.{ts,tsx,js,jsx}", "bin/www"] }
-  ],
+  "overrides": [{ "files": ["**/*.{ts,tsx,js,jsx}", "bin/www"] }],
   "parserOptions": {
     "ecmaVersion": 12
   }
