@@ -1,0 +1,30 @@
+{
+  "env": {
+    "node": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-process-exit": "off",
+    "no-var": "error",
+    "prefer-const": ["error", {
+      "destructuring": "any",
+      "ignoreReadBeforeAssign": false
+    }]
+  },
+  "overrides": [
+    { "files": ["**/*.{ts,tsx,js,jsx}", "bin/www"] }
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12
+  }
+}
