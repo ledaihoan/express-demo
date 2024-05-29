@@ -1,0 +1,18 @@
+const authUtil = require('../../utils/auth');
+module.exports = (req, res, next) => {
+  const tokenHeader = req.headers.authorization || '';
+  const token = tokenHeader.split(' ')[1];
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: 'Access denied. No token provided.' });
+  }
+
+  try {
+    const decoded = authUtil.decodeSuperUserToken(token);
+    req.user = decoded; // You can attach the decoded user information to the request object if needed
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: 'Invalid token.' });
+  }
+};
