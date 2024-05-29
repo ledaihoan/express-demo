@@ -14,7 +14,7 @@ function bindingRoutes(router, routes) {
       if (auth === false) {
         router[method](path, handler);
       } else {
-        router[method](path, handler, superUserAuthGuard);
+        router[method](path, superUserAuthGuard, handler);
       }
     }
   }

@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 const authUtil = require('../../utils/auth');
 module.exports = (req, res, next) => {
   const tokenHeader = req.headers.authorization || '';
@@ -10,6 +12,9 @@ module.exports = (req, res, next) => {
 
   try {
     const decoded = authUtil.decodeSuperUserToken(token);
+    if (_.isEmpty(decoded)) {
+      throw new Error('Invalid token');
+    }
     req.user = decoded; // You can attach the decoded user information to the request object if needed
     next();
   } catch (err) {
