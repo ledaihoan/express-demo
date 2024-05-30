@@ -5,9 +5,9 @@ const http = require('http');
 
 const debug = require('debug')('express-demo:server');
 
-const logger = require('../utils/logger');
+const logger = require('../src/utils/logger');
 
-const appInitializer = require('../app');
+const appInitializer = require('../src/app');
 
 
 (async function setupServer() {
