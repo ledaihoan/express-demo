@@ -9,7 +9,7 @@ const logger = require('./logger');
  */
 
 function getTokenPath(key) {
-  const tokenPathBase = process.env.JWT_SECRET_PATH || '/data/kms/';
+  const tokenPathBase = process.env.KMS_SECRET_PATH || '/data/kms/';
   fs.mkdirSync(tokenPathBase, { recursive: true });
   const tokenFilePath = `${tokenPathBase}/${key}.token`;
   const secretFilePath = `${tokenPathBase}/${key}.secret`;
