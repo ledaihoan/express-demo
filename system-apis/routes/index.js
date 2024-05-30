@@ -1,28 +1,17 @@
 const express = require('express');
 const moduleRouter = express.Router();
 
+const routeUtil = require('../../utils/route');
 const superUserAuthGuard = require('../middlewares/super-user-auth.guard');
 
 const userRouter = require('./user');
 
 const enabledRouters = [userRouter];
 
-function bindingRoutes(router, routes) {
-  if (Array.isArray(routes)) {
-    for (const route of routes) {
-      const { method, path, handler, auth } = route;
-      if (auth === false) {
-        router[method](path, handler);
-      } else {
-        router[method](path, superUserAuthGuard, handler);
-      }
-    }
-  }
-}
 for (const routerDef of enabledRouters) {
   const { pathPrefix, routes } = routerDef;
   const router = express.Router();
-  bindingRoutes(router, routes);
+  routeUtil.bindingRoutes(router, routes, [superUserAuthGuard]);
   moduleRouter.use(pathPrefix, router);
 }
 module.exports = moduleRouter;
