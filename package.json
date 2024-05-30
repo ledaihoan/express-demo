@@ -19,13 +19,16 @@
     ]
   },
   "dependencies": {
+    "@mikro-orm/core": "^6.2.8",
+    "@mikro-orm/postgresql": "^6.2.8",
     "cookie-parser": "~1.4.4",
     "debug": "~4.3.4",
     "express": "~4.16.1",
     "joi": "^17.13.1",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",

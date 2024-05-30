@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const userRoles = require('../constants/user-roles');
+const authRoles = require('../constants/auth-roles');
 
 const jwt = require('./jwt');
 const kms = require('./kms-simple');
@@ -8,7 +8,7 @@ const kms = require('./kms-simple');
 const SUPER_USER_AUTH_KEY = 'SUPER_USER_AUTH';
 const superUserData = {
   id: 'USER_0',
-  role: userRoles.SYSTEM
+  role: authRoles.SYSTEM
 };
 function generateSuperUserToken(forceRotate = false) {
   kms.rotateToken(superUserData, SUPER_USER_AUTH_KEY, forceRotate);
