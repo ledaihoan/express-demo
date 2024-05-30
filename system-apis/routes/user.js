@@ -1,3 +1,5 @@
+const Joi = require('joi');
+
 const userController = require('../controllers/user.controller');
 
 const pathPrefix = '/users';
@@ -10,7 +12,15 @@ const routes = [
   {
     method: 'post',
     path: '/',
-    handler: userController.createUser
+    handler: userController.createUser,
+    config: {
+      schema: Joi.object()
+        .keys({
+          username: Joi.string().required(),
+          password: Joi.string().required()
+        })
+        .required()
+    }
   },
   {
     method: 'post',

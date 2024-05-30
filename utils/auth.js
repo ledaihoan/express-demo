@@ -17,7 +17,10 @@ function generateSuperUserToken(forceRotate = false) {
 function decodeSuperUserToken(token) {
   const { token: currentToken, secret } =
     kms.getCurrentToken(SUPER_USER_AUTH_KEY);
-  const tokenSuperUserData = jwt.decodeToken(token, secret);
+  const tokenSuperUserData = _.pick(jwt.decodeToken(token, secret), [
+    'id',
+    'role'
+  ]);
   return currentToken &&
     currentToken === token &&
     _.isEqual(tokenSuperUserData, superUserData)

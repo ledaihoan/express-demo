@@ -15,6 +15,7 @@
     "prettier/prettier": "error",
     "no-process-exit": "off",
     "no-var": "error",
+    "no-console": "error",
     "prefer-const": [
       "error",
       {
