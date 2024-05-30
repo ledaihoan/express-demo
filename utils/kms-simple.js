@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const jwt = require('./jwt');
+const logger = require('./logger');
 
 /**
  *
@@ -43,7 +44,7 @@ function getCurrentToken(key) {
       secret = fs.readFileSync(secretFilePath, 'utf8');
     }
   } catch (e) {
-    console.error(`Error getting token ${key}: ${e}`);
+    logger.error(`Error getting token ${key}: ${e}`);
   }
   return { token, secret };
 }

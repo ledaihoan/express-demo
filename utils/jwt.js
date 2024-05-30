@@ -2,6 +2,8 @@ const crypto = require('crypto');
 
 const jwt = require('jsonwebtoken');
 
+const logger = require('./logger');
+
 function generateToken(data, secretKey, expireMinutes = 60) {
   return jwt.sign(data, secretKey, { expiresIn: `${expireMinutes}m` });
 }
@@ -11,7 +13,7 @@ function decodeToken(token, secretKey) {
     const decoded = jwt.verify(token, secretKey);
     return decoded;
   } catch (err) {
-    console.error('Invalid token', err);
+    logger.error('Invalid token', err);
     return null;
   }
 }
