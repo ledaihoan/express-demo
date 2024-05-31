@@ -1,3 +1,4 @@
+const publicApiModule = require('./public-apis');
 const systemApiModule = require('./system-apis');
 module.exports = {
   initAppRoutes: function (app) {
@@ -6,5 +7,6 @@ module.exports = {
       res.render('index', { title: 'Express' });
     });
     app.use('/system-apis', systemApiModule.routes);
+    app.use('/public-apis', publicApiModule.routes);
   }
 };
