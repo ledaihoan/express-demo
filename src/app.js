@@ -5,13 +5,15 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const logger = require('morgan');
 
+const cronServices = require('./crons');
 const { User } = require('./entities');
 const ormConfig = require('./mikro-orm.config');
 const { initAppRoutes } = require('./routes');
-const authUtils = require('./utils/auth');
+const authService = require('./services/auth');
 
 module.exports = async () => {
-  authUtils.generateSuperUserToken();
+  authService.generateSuperUserToken();
+  cronServices.start();
   const DI = {};
   const app = express();
   DI.orm = await MikroORM.init(ormConfig);

@@ -55,3 +55,12 @@ $ yarn migrate:down your_migration_script_name.js
 $ ./run_service.sh development
 ```
 - With Docker: in-progress, will available here soon
+### Note
+- Function included but just a simple & small mock-implemented stuff for concept demonstration:
+  - KMS: service & cron & cli
+  - Env vault: put in .env.yaml file
+  - KMS rotation:
+```shell
+$ ./init_env.sh development
+$ node src/cli/force-rotate-super-user-token
+```

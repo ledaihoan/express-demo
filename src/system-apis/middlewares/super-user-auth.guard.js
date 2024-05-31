@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const authUtil = require('../../utils/auth');
+const authService = require('../../services/auth');
 module.exports = (req, res, next) => {
   const tokenHeader = req.headers.authorization || '';
   const token = tokenHeader.split(' ')[1];
@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    const decoded = authUtil.decodeSuperUserToken(token);
+    const decoded = authService.decodeSuperUserToken(token);
     if (_.isEmpty(decoded)) {
       throw new Error('Invalid token');
     }

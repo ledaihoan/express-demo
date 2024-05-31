@@ -1,9 +1,8 @@
 const _ = require('lodash');
 
 const authRoles = require('../constants/auth-roles');
-
-const jwt = require('./jwt');
-const kms = require('./kms-simple');
+const jwt = require('../utils/jwt');
+const kms = require('../utils/kms-simple');
 
 const SUPER_USER_AUTH_KEY = 'SUPER_USER_AUTH';
 const superUserData = {
@@ -21,6 +20,9 @@ function decodeSuperUserToken(token) {
     'id',
     'role'
   ]);
+  if (_.isEmpty(tokenSuperUserData)) {
+    generateSuperUserToken();
+  }
   return currentToken &&
     currentToken === token &&
     _.isEqual(tokenSuperUserData, superUserData)
