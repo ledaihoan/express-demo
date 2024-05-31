@@ -18,7 +18,7 @@ function bindingRoutes(router, routes, authMiddlewares = []) {
           handlers.push(...authHandlers);
         }
       }
-      if (_.isEmpty(payloadSchema)) {
+      if (!_.isEmpty(payloadSchema)) {
         handlers.push(payloadValidationMiddleware(payloadSchema));
       }
       handlers.push(handler);

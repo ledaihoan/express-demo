@@ -14,10 +14,13 @@ const routes = [
     path: '/',
     handler: userController.createUser,
     config: {
-      schema: Joi.object()
+      payload: Joi.object()
         .keys({
-          username: Joi.string().required(),
-          password: Joi.string().required()
+          email: Joi.string().email().required(),
+          firstName: Joi.string().trim().max(50).required(),
+          lastName: Joi.string().trim().max(50).required(),
+          username: Joi.string().trim().default(Joi.ref('email')),
+          password: Joi.string().trim().required()
         })
         .required()
     }

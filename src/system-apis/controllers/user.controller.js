@@ -1,3 +1,5 @@
+const userService = require('../../services/user');
+
 function searchUsers(req, res) {
   res.send('Return list of users base on search criteria');
 }
@@ -6,8 +8,9 @@ function getUserById(req, res) {
   res.send('Return an user data');
 }
 
-function createUser(req, res) {
-  res.send('Return created user');
+async function createUser(req, res) {
+  const user = await userService.createUser(req.body, req.di);
+  return res.json(user);
 }
 
 function registerUser(req, res) {

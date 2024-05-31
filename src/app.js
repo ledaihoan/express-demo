@@ -12,8 +12,10 @@ const { initAppRoutes } = require('./routes');
 const authService = require('./services/auth');
 
 module.exports = async () => {
-  authService.generateSuperUserToken();
-  cronServices.start();
+  if (process.env.NODE_APP_INSTANCE === 0) {
+    authService.generateSuperUserToken();
+    cronServices.start();
+  }
   const DI = {};
   const app = express();
   DI.orm = await MikroORM.init(ormConfig);
@@ -22,8 +24,8 @@ module.exports = async () => {
   app.use(logger('dev'));
   app.use(express.json());
   app.use((req, res, next) => {
-    RequestContext.create(DI.orm.em, next);
     req.di = DI;
+    RequestContext.create(DI.orm.em, next);
   });
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());

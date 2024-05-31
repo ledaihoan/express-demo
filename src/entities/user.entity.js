@@ -3,6 +3,8 @@
 const { EntitySchema } = require('@mikro-orm/core');
 const { v4: uuidv4 } = require('uuid');
 
+const authRoles = require('../constants/auth-roles');
+
 const { BaseEntity } = require('./base.entity');
 
 /**
@@ -11,11 +13,24 @@ const { BaseEntity } = require('./base.entity');
  * @property {Date} updatedAt
  */
 class User extends BaseEntity {
-  constructor(username, password) {
+  constructor(
+    email,
+    password,
+    firstName,
+    lastName,
+    isActive = false,
+    username = email,
+    role = authRoles.USER
+  ) {
     super();
     this.id = uuidv4();
     this.username = username;
     this.password = password;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.isActive = isActive;
+    this.role = role;
   }
 }
 
@@ -25,7 +40,12 @@ const schema = new EntitySchema({
   properties: {
     id: { primary: true, type: 'string' },
     username: { type: 'string' },
-    password: { type: 'string' }
+    password: { type: 'string' },
+    email: { type: 'string' },
+    firstName: { type: 'string', name: 'first_name' },
+    lastName: { type: 'string', name: 'last_name' },
+    isActive: { type: 'boolean', name: 'is_active' },
+    role: { type: 'string' }
   }
 });
 

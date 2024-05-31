@@ -21,6 +21,7 @@ exports.up = async function (knex) {
     table.string('username').notNullable();
     table.string('password').notNullable();
     table.boolean('is_active').defaultTo(true);
+    table.string('role').notNullable().defaultTo('user');
     table.unique(['email']);
     table.unique(['username']);
 

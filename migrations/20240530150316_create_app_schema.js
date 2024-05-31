@@ -8,6 +8,10 @@ const {
 const USER = process.env.DB_USER;
 const SCHEMA_NAME = 'express_demo';
 const PASSWORD = process.env.DB_PASSWORD;
+if (!USER || !PASSWORD) {
+  throw new Error('DB env not loaded. Exiting...');
+}
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
