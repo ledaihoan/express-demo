@@ -6,6 +6,7 @@ const express = require('express');
 const logger = require('morgan');
 
 const cronServices = require('./crons');
+const databaseExceptionFilter = require('./middlewares/database-exception.filter');
 const ormConfig = require('./mikro-orm.config');
 const { initAppRoutes } = require('./routes');
 const authService = require('./services/auth');
@@ -21,6 +22,7 @@ module.exports = async () => {
   DI.em = DI.orm.em;
   app.use(logger('dev'));
   app.use(express.json());
+  app.use(databaseExceptionFilter);
   app.use((req, res, next) => {
     req.di = DI;
     RequestContext.create(DI.orm.em, next);
