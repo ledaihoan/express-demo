@@ -25,7 +25,7 @@ function rotateToken(data, key = 'default', forceRotate = false) {
     const newToken = jwt.generateToken(
       data,
       newSecret,
-      process.env.JWT_TOKEN_EXPIRE_MINUTES || 60
+      process.env.KMS_TOKEN_EXPIRES_MINUTES || 60
     );
     fs.writeFileSync(tokenFilePath, newToken);
     fs.writeFileSync(secretFilePath, newSecret);

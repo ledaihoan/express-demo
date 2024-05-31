@@ -1,5 +1,7 @@
 const Joi = require('joi');
+const _ = require('lodash');
 
+const authRoles = require('../../constants/auth-roles');
 const userController = require('../controllers/user.controller');
 
 const pathPrefix = '/users';
@@ -20,7 +22,11 @@ const routes = [
           firstName: Joi.string().trim().max(50).required(),
           lastName: Joi.string().trim().max(50).required(),
           username: Joi.string().trim().default(Joi.ref('email')),
-          password: Joi.string().trim().required()
+          password: Joi.string().trim().required(),
+          isActive: Joi.boolean().default(false),
+          role: Joi.string()
+            .valid(..._.values(authRoles))
+            .default(authRoles.USER)
         })
         .required()
     }
