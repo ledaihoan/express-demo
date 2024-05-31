@@ -10,5 +10,5 @@ echo "PORT: $PORT"  # Add debug statement
 # Step1. Install dependencies
 yarn
 # Step2. Run project under pm2
-pm2 startOrReload ecosystem.config.js --env $NODE_ENV
+pm2 startOrReload ecosystem.config.js --env $NODE_ENV --update-env
 

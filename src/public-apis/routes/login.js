@@ -1,3 +1,5 @@
+const Joi = require('joi');
+
 const loginController = require('../controllers/login');
 const userController = require('../controllers/login');
 
@@ -7,31 +9,49 @@ const routes = [
     method: 'post',
     path: '/login',
     handler: loginController.login,
-    auth: false
+    config: {
+      auth: false,
+      payload: Joi.object()
+        .keys({
+          email: Joi.string().email(),
+          username: Joi.string().trim(),
+          password: Joi.string().trim().required()
+        })
+        .xor('email', 'username')
+        .required()
+    }
   },
   {
     method: 'post',
     path: '/register',
     handler: loginController.register,
-    auth: false
+    config: {
+      auth: false
+    }
   },
   {
     method: 'post',
     path: '/forgot',
     handler: loginController.forgotPassword,
-    auth: false
+    config: {
+      auth: false
+    }
   },
   {
     method: 'post',
     path: '/reset-password',
     handler: loginController.resetPassword,
-    auth: false
+    config: {
+      auth: false
+    }
   },
   {
     method: 'post',
     path: '/activate/:token',
     handler: userController.activateUser,
-    auth: false
+    config: {
+      auth: false
+    }
   }
 ];
 module.exports = {

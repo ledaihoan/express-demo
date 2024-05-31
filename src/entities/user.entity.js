@@ -19,10 +19,14 @@ class User extends BaseEntity {
     firstName,
     lastName,
     isActive = false,
-    username = email,
+    username = null,
     role = authRoles.USER
   ) {
     super();
+    // Check if username is provided, otherwise default to email
+    if (username === null || username === undefined) {
+      username = email;
+    }
     this.id = uuidv4();
     this.username = username;
     this.password = password;

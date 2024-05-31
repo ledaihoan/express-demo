@@ -1,5 +1,12 @@
+const authService = require('../../services/auth');
 async function login(req, res) {
-  res.send('Login API');
+  const token = await authService.loginUser(req);
+  if (!token) {
+    return res
+      .status(400)
+      .json({ message: 'Invalid combination of user and password' });
+  }
+  return res.json({ access_token: token });
 }
 
 async function register(req, res) {

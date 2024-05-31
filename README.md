@@ -4,6 +4,7 @@ This project is for demonstration purpose for the Express.js development with va
   - Gateway separation: just system-apis, user-gateway, admin-gateway, public-gateway routes for simple demonstration in one project
   - Role-based authorization: included by gateway separation (Eg: only user role can access user-gateway APIs, only admin role can access admin-gateway APIs)
   - Resource-based authorization: only user or admin with appropriate ownership can manipulate his own resource data
+  - Note about system-apis: Better if only system apis contains service logic, other gateways (user, admin, public) will manipulate their requests by calling upstream system apis (SYSTEM internal auth)
 - Database: Postgresql with MikroORM, knex-migrations
 
 ## Setup
