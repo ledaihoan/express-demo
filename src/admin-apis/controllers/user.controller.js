@@ -27,11 +27,16 @@ function updateUser(req, res) {
   res.send('Update an user data');
 }
 
+function activateUser(req, res) {
+  res.send('Activate an user');
+}
+
 module.exports = {
   searchUsers,
   getUserById,
   createUser,
   registerUser,
   deleteUser,
-  updateUser
+  updateUser,
+  activateUser
 };

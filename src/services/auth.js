@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const _ = require('lodash');
 
 const authRoles = require('../constants/auth-roles');
@@ -30,7 +32,13 @@ function decodeSuperUserToken(token) {
     : null;
 }
 
+function decodeUserToken(token) {
+  const secret = fs.readFileSync(process.env.USER_SECRET_FILE);
+  return jwt.decodeToken(token, secret);
+}
+
 module.exports = {
   generateSuperUserToken,
-  decodeSuperUserToken
+  decodeSuperUserToken,
+  decodeUserToken
 };
