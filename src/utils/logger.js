@@ -2,7 +2,7 @@ const { createLogger, format, transports } = require('winston');
 require('winston-daily-rotate-file');
 
 const dailyRotateFile = new transports.DailyRotateFile({
-  filename: 'log/api.%DATE%.log',
+  filename: 'log/express-demo.%DATE%.log',
   datePattern: 'YYYY-MM-DD'
 });
 

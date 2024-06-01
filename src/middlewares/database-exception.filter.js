@@ -9,30 +9,24 @@ const {
   ValidationError,
   DriverException
 } = require('@mikro-orm/core');
-const {
-  BadRequestError,
-  ConflictError,
-  InternalServerError,
-  PreconditionFailedError,
-  NotFound
-} = require('http-errors');
+const HttpError = require('standard-http-error');
 
 function databaseExceptionFilter(err, req, res, next) {
   // Handle different types of database exceptions
   if (err instanceof NotFoundError) {
-    return next(new NotFound());
+    return next(new HttpError('NOT_FOUND'));
   }
 
   if (err instanceof OptimisticLockError) {
-    return next(new PreconditionFailedError());
+    return next(new HttpError('PRECONDITION_FAILED'));
   }
 
   if (err instanceof MetadataError) {
-    return next(new InternalServerError());
+    return next(new HttpError('INTERNAL_SERVER_ERROR'));
   }
 
   if (err instanceof NotNullConstraintViolationException) {
-    return next(new BadRequestError());
+    return next(new HttpError('BAD_REQUEST'));
   }
 
   if (
@@ -40,15 +34,15 @@ function databaseExceptionFilter(err, req, res, next) {
     err instanceof ForeignKeyConstraintViolationException ||
     err instanceof ConstraintViolationException
   ) {
-    return next(new ConflictError());
+    return next(new HttpError('CONFLICT'));
   }
 
   if (err instanceof ValidationError) {
-    return next(new BadRequestError());
+    return next(new HttpError('BAD_REQUEST'));
   }
 
   if (err instanceof DriverException) {
-    return next(new InternalServerError());
+    return next(new HttpError('INTERNAL_SERVER_ERROR'));
   }
 
   // Pass the error to the next middleware if it's not a database exception

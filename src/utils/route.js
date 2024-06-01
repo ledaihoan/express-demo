@@ -1,6 +1,14 @@
 const _ = require('lodash');
 
+const asyncHandler = require('../middlewares/async.handler');
 const payloadValidationMiddleware = require('../middlewares/payload.validator');
+
+function isAsyncFunction(func) {
+  if (typeof func !== 'function') {
+    return false;
+  }
+  return func.constructor.name === 'AsyncFunction';
+}
 function bindingRoutes(router, routes, authMiddlewares = []) {
   if (Array.isArray(routes)) {
     for (const route of routes) {
@@ -21,7 +29,10 @@ function bindingRoutes(router, routes, authMiddlewares = []) {
       if (!_.isEmpty(payloadSchema)) {
         handlers.push(payloadValidationMiddleware(payloadSchema));
       }
-      handlers.push(handler);
+      const routeHandler = isAsyncFunction(handler)
+        ? asyncHandler(handler)
+        : handler;
+      handlers.push(routeHandler);
       router[method](path, ...handlers);
     }
   }

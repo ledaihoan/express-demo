@@ -9,12 +9,7 @@ async function createUser(payload, DI) {
   dto.password = await encryptionService.hashPassword(payload.password);
 
   const user = DI.em.create(User, dto);
-  // eslint-disable-next-line no-useless-catch
-  try {
-    await DI.em.persistAndFlush(user);
-  } catch (err) {
-    throw err;
-  }
+  await DI.em.persistAndFlush(user);
 
   return user;
 }
