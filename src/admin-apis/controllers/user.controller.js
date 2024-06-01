@@ -1,11 +1,13 @@
 const userService = require('../../services/user');
 
-function searchUsers(req, res) {
-  res.send('Return list of users base on search criteria');
+async function searchUsers(req, res) {
+  const users = await userService.find(req.di, {});
+  return res.json(users);
 }
 
-function getUserById(req, res) {
-  res.send('Return an user data');
+async function getUserById(req, res) {
+  const user = await userService.findOne(req.di, req.params.id);
+  return res.json(user);
 }
 
 async function createUser(req, res) {
@@ -19,8 +21,10 @@ function registerUser(req, res) {
   );
 }
 
-function deleteUser(req, res) {
-  res.send('Delete an user');
+async function deleteUser(req, res) {
+  const id = req.params.id;
+  await userService.deleteUser(req.di, id);
+  return res.json();
 }
 
 function updateUser(req, res) {

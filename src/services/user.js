@@ -18,7 +18,20 @@ async function findOne(DI, payload, options = undefined) {
   return DI.orm.em.findOne(User, payload, options);
 }
 
+async function deleteUser(DI, id) {
+  const user = await findOne(DI, { id });
+  if (user) {
+    return DI.orm.em.removeAndFlush(user);
+  }
+}
+
+async function find(DI, payload, options = undefined) {
+  return DI.orm.em.find(User, payload, options);
+}
+
 module.exports = {
   createUser,
-  findOne
+  findOne,
+  deleteUser,
+  find
 };
