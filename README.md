@@ -11,11 +11,46 @@ This project is for demonstration purpose for the Express.js development with va
 - Suggested environment: 
   - Use Docker: Intel-based operating systems (Windows, MacOS, Linux)
   - Run project locally without Docker: Ubuntu LTS (22.04/24.04)
+- The project guide will be primary focus on Linux env (specially Ubuntu). For Windows env, please install Docker for easier pipe
 ### Install Docker
-in-progress, will available here soon
+- Follow the guide at: https://docs.docker.com/engine/install/#supported-platforms
+### Easy installation for Ubuntu LTS (Include both NodeJS and Postgresql)
+- Install git:
+```shell
+$ sudo apt-get install git curl
+$ git clone https://github.com/ledaihoan/common-dev
+$ cd common-dev/0-setup-base
+$ ./install_env.sh
+```
 ### Install nvm and NodeJS
+- Install git and curl
+```shell
+$ sudo apt-get install -y git curl
+```
+- Install nvm
+```shell
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+```
+- Install NodeJS: at the time of writing, the latest LTS version is 20.13.1
+```shell
+$ source ~/.nvm/nvm.sh
+# at the time of writing, the latest LTS version is 20.13.1
+$ nvm install --lts
+$ npm i -g yarn pm2
+```
 ### Install Postgresql
+- Follow the guide at: https://www.postgresql.org/download/
+
 ### Setup Postgresql admin user
+```shell
+# start and enable postgresql
+$ sudo sytemctl start postgresql && sudo systemctl enable postgresql
+# login as postgres
+$ sudo su - postgresql
+~$ psql
+postgres=~# CREATE USER sample_admin WITH LOGIN SUPERUSER PASSWORD 'sampleAdmin2024';
+postgres=~# CREATE DATABASE express_demo;
+```
 ### Database migrations
 - For current source code
 ```shell
@@ -60,8 +95,9 @@ $ ./run_service.sh development
 - Function included but just a simple & small mock-implemented stuff for concept demonstration:
   - KMS: service & cron & cli
   - Env vault: put in .env.yaml file
-  - KMS rotation:
+  - KMS rotation (force when needed for service operator):
 ```shell
-$ ./init_env.sh development
+# replace development with appropriate env
+$ . init_env.sh development
 $ node src/cli/force-rotate-super-user-token
 ```
