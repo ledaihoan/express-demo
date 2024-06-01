@@ -14,6 +14,8 @@ This project is for demonstration purpose for the Express.js development with va
 - The project guide will be primary focus on Linux env (specially Ubuntu). For Windows env, please install Docker for easier pipe
 ### Install Docker
 - Follow the guide at: https://docs.docker.com/engine/install/#supported-platforms
+- For example, ubuntu guide is at: https://docs.docker.com/engine/install/ubuntu/
+- Linux post installation: https://docs.docker.com/engine/install/linux-postinstall/
 ### Easy installation for Ubuntu LTS (Include both NodeJS and Postgresql)
 - Install git:
 ```shell
@@ -52,6 +54,11 @@ postgres=~# CREATE USER sample_admin WITH LOGIN SUPERUSER PASSWORD 'sampleAdmin2
 postgres=~# CREATE DATABASE express_demo;
 ```
 ### Database migrations
+- If run without Docker, please install and start postgresql service follow the guide mentioned above
+- With Docker installed:
+```shell
+./start_postgres_docker.sh
+```
 - For current source code
 ```shell
 # change development with desire env name
@@ -90,7 +97,11 @@ $ yarn migrate:down your_migration_script_name.js
 # replace development with the desire env to run (production for server)
 $ ./run_service.sh development
 ```
-- With Docker: in-progress, will available here soon
+- With Docker:
+```shell
+# replace development with the desire env to run (production for server)
+$ ./run_service.sh development docker
+```
 ### Note
 - Function included but just a simple & small mock-implemented stuff for concept demonstration:
   - KMS: service & cron & cli

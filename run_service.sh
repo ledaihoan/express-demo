@@ -6,6 +6,9 @@ else
 fi
 # Step0. init env (". bash_file.sh" -> preserve the env variable after script)
 . init_env.sh $NODE_ENV
+if [ "$2" == "docker" ]; then
+  ./start_postgres_docker.sh
+fi
 echo "PORT: $PORT"  # Add debug statement
 # Step1. Install dependencies
 yarn
