@@ -3,9 +3,9 @@ const moduleRouter = express.Router();
 
 const routeUtil = require('../../utils/route');
 
-const loginRouter = require('./login');
+const authRouter = require('./auth');
 
-const enabledRouters = [loginRouter];
+const enabledRouters = [authRouter];
 
 for (const routerDef of enabledRouters) {
   const { pathPrefix, routes } = routerDef;

@@ -16,20 +16,34 @@ function getTokenPath(key) {
   return { tokenFilePath, secretFilePath };
 }
 
-function rotateToken(data, key = 'default', forceRotate = false) {
+async function rotateToken(
+  data,
+  key = 'default',
+  includeSecret = false,
+  forceRotate = false
+) {
   const { secret, token } = getCurrentToken(key);
   const decoded = jwt.decodeToken(token, secret);
   if (forceRotate || !decoded) {
-    const { tokenFilePath, secretFilePath } = getTokenPath(key);
-    const newSecret = jwt.generateRandomSecret(16);
+    const { tokenFilePath } = getTokenPath(key);
+    let newSecret = secret;
+    if (includeSecret) {
+      newSecret = rotateSecret(key);
+    }
     const newToken = jwt.generateToken(
       data,
       newSecret,
       process.env.KMS_TOKEN_EXPIRES_MINUTES || 60
     );
     fs.writeFileSync(tokenFilePath, newToken);
-    fs.writeFileSync(secretFilePath, newSecret);
   }
+}
+
+function rotateSecret(key = 'default') {
+  const { secretFilePath } = getTokenPath(key);
+  const newSecret = jwt.generateRandomSecret(16);
+  fs.writeFileSync(secretFilePath, newSecret);
+  return newSecret;
 }
 
 function getCurrentToken(key) {
@@ -50,5 +64,6 @@ function getCurrentToken(key) {
 }
 module.exports = {
   rotateToken,
-  getCurrentToken
+  getCurrentToken,
+  rotateSecret
 };

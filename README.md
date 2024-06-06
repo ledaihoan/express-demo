@@ -62,7 +62,7 @@ postgres=~# CREATE DATABASE express_demo;
 - For current source code
 ```shell
 # change development with desire env name
-$ ./init_env.sh development
+$ . init_env.sh development
 $ export DB_CONNECTION_STRING=postgresql://sample_admin:sampleAdmin2024@localhost:5432/postgres
 $ yarn migrate:latest
 ```

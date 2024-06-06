@@ -14,7 +14,7 @@ const authService = require('./services/auth');
 
 module.exports = async () => {
   if (process.env.NODE_APP_INSTANCE === 0) {
-    authService.generateSuperUserToken();
+    await authService.rotateAuthTokens();
     cronServices.start();
   }
   const DI = {};
