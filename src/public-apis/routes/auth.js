@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+const { passwordValidationSchema } = require('../../constants/payload-schema');
 const authController = require('../controllers/auth');
 
 const pathPrefix = '/';
@@ -14,7 +15,7 @@ const routes = [
         .keys({
           email: Joi.string().email(),
           username: Joi.string().trim(),
-          password: Joi.string().trim().required()
+          password: passwordValidationSchema
         })
         .xor('email', 'username')
         .required()
@@ -30,7 +31,7 @@ const routes = [
         .keys({
           email: Joi.string().email().required(),
           username: Joi.string().trim().default(Joi.ref('email')),
-          password: Joi.string().trim().required(),
+          password: passwordValidationSchema,
           firstName: Joi.string().trim().max(50).required(),
           lastName: Joi.string().trim().max(50).required()
         })
@@ -60,7 +61,7 @@ const routes = [
       auth: false,
       payload: Joi.object()
         .keys({
-          password: Joi.string().trim().required()
+          passwordValidationSchema
         })
         .xor('email', 'username')
         .required()

@@ -1,16 +1,17 @@
 const Joi = require('joi');
 
+const { passwordValidationSchema } = require('../../constants/payload-schema');
 const userController = require('../controllers/user.controller');
 const pathPrefix = '/users';
 const routes = [
   {
     method: 'get',
-    path: '/:id',
+    path: '/:uid',
     handler: userController.getUserById
   },
   {
     method: 'put',
-    path: '/:id',
+    path: '/:uid',
     handler: userController.updateUser,
     config: {
       payload: Joi.object()
@@ -24,8 +25,16 @@ const routes = [
   },
   {
     method: 'post',
-    path: '/:id/change-password',
-    handler: userController.changePassword
+    path: '/:uid/change-password',
+    handler: userController.changePassword,
+    config: {
+      payload: Joi.object()
+        .keys({
+          password: passwordValidationSchema
+        })
+        .required()
+        .min(1)
+    }
   }
 ];
 
