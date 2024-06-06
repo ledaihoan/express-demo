@@ -46,7 +46,7 @@ async function find(DI, payload, options = undefined) {
   return DI.orm.em.find(User, payload, options);
 }
 
-async function resetPassword(DI, id, password) {
+async function changePassword(DI, id, password) {
   const user = await findOneOrFail(DI, id);
   wrap(user).assign({ password });
   await DI.em.persistAndFlush(user);
@@ -61,5 +61,5 @@ module.exports = {
   find,
   registerUser,
   activateUser,
-  resetPassword
+  changePassword
 };

@@ -45,7 +45,7 @@ async function resetPassword(req, res) {
   if (_.isEmpty(userData)) {
     throw new HttpError('BAD_REQUEST');
   }
-  await userService.resetPassword(req.di, userData.id, req.payload.password);
+  await userService.changePassword(req.di, userData.id, req.payload.password);
   return res.json();
 }
 
