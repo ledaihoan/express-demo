@@ -1,7 +1,7 @@
 const userService = require('../../services/user');
 
 async function searchUsers(req, res) {
-  const users = await userService.find(req.di, {});
+  const users = await userService.searchUsers(req.di, req.pagination, req.user);
   return res.json(users);
 }
 

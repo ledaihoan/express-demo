@@ -9,7 +9,7 @@ This project is for demonstration purpose for the Express.js development with va
 
 ## Setup
 - Suggested environment: 
-  - Use Docker: Intel-based operating systems (Windows, MacOS, Linux)
+  - Use Docker: Intel/AMD-based (ARM is not well-supported) operating systems (Windows, MacOS, Linux)
   - Run project locally without Docker: Ubuntu LTS (22.04/24.04)
 - The project guide will be primary focus on Linux env (specially Ubuntu). For Windows env, please install Docker for easier pipe
 ### Install Docker

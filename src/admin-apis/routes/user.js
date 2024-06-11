@@ -9,7 +9,27 @@ const routes = [
   {
     method: 'post',
     path: '/search',
-    handler: userController.searchUsers
+    handler: userController.searchUsers,
+    config: {
+      query: Joi.object().keys({
+        _limit: Joi.number().integer().positive().default(100).max(1000),
+        _cursor: Joi.string().trim(),
+        _sort: Joi.string()
+          .valid(...['createdAt:asc', 'createdAt:desc'])
+          .default('createdAt:asc')
+      }),
+      payload: Joi.object()
+        .keys({
+          roles: Joi.array()
+            .items(Joi.string().valid(...[authRoles.USER, authRoles.ADMIN]))
+            .min(1)
+        })
+        .min(1),
+      pagination: {
+        defaultSort: 'createdAt:asc',
+        fieldMaps: [{ roles: 'role' }]
+      }
+    }
   },
   {
     method: 'post',
